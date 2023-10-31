@@ -71,8 +71,8 @@ defmodule Homeassistant.MQTTClient do
           "ExHomeassstiant: There are #{length(state.queue)} messages in the queue. Sending..."
         )
 
-        for {topic, payload} <- Enum.reverse(state.queue) do
-          :emqtt.publish(emqtt_pid, topic, payload)
+        for {topic, payload, opts} <- Enum.reverse(state.queue) do
+          :emqtt.publish(emqtt_pid, topic, payload, opts)
         end
 
         {:noreply, %State{state | connected: true}}
@@ -104,8 +104,8 @@ defmodule Homeassistant.MQTTClient do
     {:noreply, state}
   end
 
-  def handle_cast({:publish, topic, payload}, %State{} = state) do
+  def handle_cast({:publish, topic, payload, opts}, %State{} = state) do
     Logger.debug("ExHomeassstiant: MQTT not connected, message to #{topic} queued.")
-    {:noreply, %State{state | queue: [{topic, payload} | state.queue]}}
+    {:noreply, %State{state | queue: [{topic, payload, opts} | state.queue]}}
   end
 end
