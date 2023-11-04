@@ -4,7 +4,7 @@ defmodule Homeassistant.Devices.BinarySensor do
   # see here for device classes: https://www.home-assistant.io/integrations/binary_sensor/
   defstruct [:name, :device_class]
 
-  def setup(%__MODULE__{} = binary_sensor) do
+  def configure(%__MODULE__{} = binary_sensor) do
     payload =
       %{
         name: binary_sensor.name,
@@ -19,7 +19,7 @@ defmodule Homeassistant.Devices.BinarySensor do
     MQTTClient.publish(topic, payload)
   end
 
-  def send_state(%__MODULE__{} = binary_sensor, state) when is_boolean(state) do
+  def set_state(%__MODULE__{} = binary_sensor, state) when is_boolean(state) do
     payload = if state, do: "ON", else: "OFF"
     topic = state_topic(binary_sensor)
 

@@ -4,7 +4,7 @@ defmodule Homeassistant.Devices.Select do
 
   defstruct [:name, :options]
 
-  def setup(%__MODULE__{} = select) do
+  def configure(%__MODULE__{} = select) do
     payload =
       %{
         name: select.name,
@@ -20,7 +20,7 @@ defmodule Homeassistant.Devices.Select do
     MQTTClient.publish(topic, payload)
   end
 
-  def send_state(%__MODULE__{} = select, option) do
+  def set_state(%__MODULE__{} = select, option) do
     if option in select.options do
       payload = option
       topic = state_topic(select)
@@ -31,9 +31,9 @@ defmodule Homeassistant.Devices.Select do
     end
   end
 
-  def subscribe(%__MODULE__{} = select, reply_to) when is_pid(reply_to) do
+  def subscribe(%__MODULE__{} = select) do
     topic = command_topic(select)
-    MQTTClient.subscribe(topic, reply_to)
+    MQTTClient.subscribe(topic, self())
   end
 
   defp command_topic(%__MODULE__{} = select) do
