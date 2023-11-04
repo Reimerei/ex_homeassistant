@@ -26,9 +26,6 @@ defmodule Homeassistant.Devices.BinarySensor do
     MQTTClient.publish(topic, payload)
   end
 
-  def state_payload(true), do: "ON"
-  def state_payload(false), do: "OFF"
-
   defp state_topic(%__MODULE__{} = binary_sensor) do
     "homeassistant/binary_sensor/#{entity_id(binary_sensor)}/state"
   end

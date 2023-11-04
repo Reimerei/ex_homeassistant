@@ -3,7 +3,7 @@ defmodule Homeassistant.Application do
 
   def start(_type, _args) do
     children =
-      case Application.fetch_env(:homeassistant, :test_config) do
+      case Application.fetch_env(:ex_homeassistant, :mqtt_config) do
         {:ok, config} -> [{Homeassistant, config}]
         :error -> []
       end

@@ -4,7 +4,7 @@ defmodule Homeassistant.MQTTClient do
 
   defmodule State do
     @config_keys [:mqtt_host, :mqtt_port, :client_id, :username, :password]
-    @internal_keys [:emqtt_pid, connected: false, queue: []]
+    @internal_keys [:emqtt_pid, connected: false, queue: [], subscriptions: %{}]
 
     @enforce_keys @config_keys
     defstruct @config_keys ++ @internal_keys
@@ -18,11 +18,19 @@ defmodule Homeassistant.MQTTClient do
   Publish a message to a topic.
 
   Opts:
-    - retain: boolean [default: false]
+    - retain: boolean [default: true]
   """
   def publish(topic, payload, opts \\ []) when is_binary(topic) and is_binary(payload) do
+    opts = Keyword.put_new(opts, :retain, true)
+
     GenServer.cast(__MODULE__, {:publish, topic, payload, opts})
   end
+
+  def subscribe(topic, reply_to) when is_binary(topic) and is_pid(reply_to) do
+    GenServer.cast(__MODULE__, {:subscribe, topic, reply_to})
+  end
+
+  # GenServer callbacks
 
   def init(state = %State{}) do
     Process.flag(:trap_exit, true)
@@ -71,8 +79,8 @@ defmodule Homeassistant.MQTTClient do
           "ExHomeassstiant: There are #{length(state.queue)} messages in the queue. Sending..."
         )
 
-        for {topic, payload, opts} <- Enum.reverse(state.queue) do
-          :emqtt.publish(emqtt_pid, topic, payload, opts)
+        for msg <- Enum.reverse(state.queue) do
+          GenServer.cast(__MODULE__, msg)
         end
 
         {:noreply, %State{state | connected: true}}
@@ -81,6 +89,19 @@ defmodule Homeassistant.MQTTClient do
         Logger.warning("ExHomeassstiant: MQTT connection failed: #{inspect(reason)}")
         {:noreply, %State{state | connected: false}}
     end
+  end
+
+  def handle_info({:publish, %{payload: payload, topic: topic}}, %State{} = state) do
+    case Map.fetch(state.subscriptions, topic) do
+      {:ok, reply_to} ->
+        Logger.debug("ExHomeassstiant: Received MQTT message to #{topic}: #{inspect(payload)}")
+        send(reply_to, {:homeassistant_command, topic, payload})
+
+      :error ->
+        Logger.warning("ExHomeassstiant: No subscriber for #{topic}")
+    end
+
+    {:noreply, state}
   end
 
   def handle_info({:EXIT, _pid, reason}, state) do
@@ -104,8 +125,19 @@ defmodule Homeassistant.MQTTClient do
     {:noreply, state}
   end
 
-  def handle_cast({:publish, topic, payload, opts}, %State{} = state) do
-    Logger.debug("ExHomeassstiant: MQTT not connected, message to #{topic} queued.")
-    {:noreply, %State{state | queue: [{topic, payload, opts} | state.queue]}}
+  def handle_cast(
+        {:subscribe, topic, reply_to},
+        %State{connected: true, emqtt_pid: emqtt_pid} = state
+      )
+      when is_pid(emqtt_pid) do
+    Logger.debug("ExHomeassstiant: Subscribing to #{topic}")
+
+    :emqtt.subscribe(emqtt_pid, topic)
+    {:noreply, %State{state | subscriptions: Map.put(state.subscriptions, topic, reply_to)}}
+  end
+
+  def handle_cast(msg, %State{} = state) do
+    Logger.debug("ExHomeassstiant: MQTT not connected, queueing msg #{inspect(msg)}")
+    {:noreply, %State{state | queue: [msg | state.queue]}}
   end
 end
