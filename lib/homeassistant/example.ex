@@ -1,5 +1,5 @@
-defmodule Homeassistant.Example do
-  alias Homeassistant.Devices.{BinarySensor, Select}
+defmodule ExHomeassistant.Example do
+  alias ExHomeassistant.Devices.{BinarySensor, Select}
 
   @binary_sensor %BinarySensor{
     name: "Moep Test",
@@ -12,26 +12,26 @@ defmodule Homeassistant.Example do
   }
 
   def sensor_setup() do
-    BinarySensor.setup(@binary_sensor)
+    BinarySensor.configure(@binary_sensor)
   end
 
   def sensor_off() do
-    BinarySensor.send_state(@binary_sensor, false)
+    BinarySensor.set_state(@binary_sensor, false)
   end
 
   def sensor_on() do
-    BinarySensor.send_state(@binary_sensor, true)
+    BinarySensor.set_state(@binary_sensor, true)
   end
 
   def select_setup() do
-    Select.setup(@select)
+    Select.configure(@select)
   end
 
   def select_send_state(option) do
-    Select.send_state(@select, option)
+    Select.set_state(@select, option)
   end
 
-  def select_subscribe(reply_to) do
-    Select.subscribe(@select, reply_to)
+  def select_subscribe() do
+    Select.subscribe(@select)
   end
 end

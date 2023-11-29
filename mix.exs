@@ -1,4 +1,4 @@
-defmodule Homeassistant.MixProject do
+defmodule ExHomeassistant.MixProject do
   use Mix.Project
 
   def project do
@@ -14,7 +14,7 @@ defmodule Homeassistant.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      mod: {Homeassistant.Application, []},
+      # mod: {ExHomeassistant.Application, []},
       extra_applications: [:logger]
     ]
   end

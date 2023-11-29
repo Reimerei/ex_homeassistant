@@ -1,8 +1,8 @@
-defmodule HomeassistantTest do
+defmodule ExHomeassistantTest do
   use ExUnit.Case
-  doctest Homeassistant
+  doctest ExHomeassistant
 
   test "greets the world" do
-    assert Homeassistant.hello() == :world
+    assert ExHomeassistant.hello() == :world
   end
 end

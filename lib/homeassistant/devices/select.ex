@@ -1,6 +1,6 @@
-defmodule Homeassistant.Devices.Select do
+defmodule ExHomeassistant.Devices.Select do
   require Logger
-  alias Homeassistant.{MQTTClient, Helper}
+  alias ExHomeassistant.{MQTTClient, Helper}
 
   defstruct [:name, :options]
 
@@ -27,7 +27,7 @@ defmodule Homeassistant.Devices.Select do
 
       MQTTClient.publish(topic, payload)
     else
-      Logger.error("ExHomeassistant: Option #{option} not in #{inspect(select.options)}")
+      Logger.error("ExExHomeassistant: Option #{option} not in #{inspect(select.options)}")
     end
   end
 

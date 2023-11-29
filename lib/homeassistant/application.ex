@@ -1,10 +1,10 @@
-defmodule Homeassistant.Application do
+defmodule ExHomeassistant.Application do
   use Application
 
   def start(_type, _args) do
     children =
       case Application.fetch_env(:ex_homeassistant, :mqtt_config) do
-        {:ok, config} -> [{Homeassistant, config}]
+        {:ok, config} -> [{ExHomeassistant, config}]
         :error -> []
       end
 

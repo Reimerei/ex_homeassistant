@@ -1,7 +1,7 @@
-defmodule Homeassistant do
+defmodule ExHomeassistant do
   use Supervisor
 
-  alias Homeassistant.MQTTClient
+  alias ExHomeassistant.MQTTClient
 
   @doc """
   Starts the supervisor, add this to your application supervisor.
@@ -13,7 +13,9 @@ defmodule Homeassistant do
     - username: string [default: "homeassistant"]
     - password: string [default: ""]
   """
-  def start_link(opts \\ []) do
+  def start_link(nil), do: :noop
+
+  def start_link(opts) do
     mqtt_state = %MQTTClient.State{
       mqtt_host: Keyword.get(opts, :mqtt_host, "localhost"),
       mqtt_port: Keyword.get(opts, :mqtt_port, 1883),
@@ -26,7 +28,7 @@ defmodule Homeassistant do
   end
 
   def init(mqtt_state) do
-    children = [{Homeassistant.MQTTClient, mqtt_state}]
+    children = [{ExHomeassistant.MQTTClient, mqtt_state}]
 
     Supervisor.init(children, strategy: :one_for_one)
   end

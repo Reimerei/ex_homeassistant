@@ -1,4 +1,4 @@
-defmodule Homeassistant.Helper do
+defmodule ExHomeassistant.Helper do
   def sanetize_entity_id(name) when is_binary(name) do
     name
     |> String.downcase()

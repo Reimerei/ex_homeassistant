@@ -14,45 +14,45 @@ def deps do
 end
 ```
 
-Add to your supervision tree
+Add to your supervision tree. See [here](lib/homeassistant.ex) for more config options.
 ```elixir
   mqtt_config = [
     mqtt_host: "your_host",
-    password: "password"
+    password: "password",
+    client_id: "client_id"
   ]
 
   children = [
     # ...
-    {Homeassistant, mqtt_config}
+    {ExHomeassistant, mqtt_config}
   ]
 ```
 
-See [here](lib/homeassistant.ex) for more config options.
+
 
 ## Usage
 
 ```elixir
 defmodule Example do
-  alias Homeassistant.Devices.BinarySensor
+  alias ExHomeassistant.Devices.BinarySensor
 
   @sensor %BinarySensor{
     name: "Moep Test",
     device_class: "door"
   }
 
-  # sends the config of the sensor to homeasssistant and triggers the autodiscovery
+  # sends the config of the sensor to homeassistant and triggers the autodiscovery
   def setup() do
-    BinarySensor.setup(@some_sensor)
+    BinarySensor.configure(@some_sensor)
   end
 
   def off() do
-    BinarySensor.send_state(@some_sensor, false)
+    BinarySensor.set_state(@some_sensor, false)
   end
 
   def on() do
-    BinarySensor.send_state(@some_sensor, true)
+    BinarySensor.set_state(@some_sensor, true)
   end
 end
-
 ```
 

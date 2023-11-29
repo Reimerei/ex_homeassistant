@@ -1,5 +1,5 @@
-defmodule Homeassistant.Devices.BinarySensor do
-  alias Homeassistant.{MQTTClient, Helper}
+defmodule ExHomeassistant.Devices.BinarySensor do
+  alias ExHomeassistant.{MQTTClient, Helper}
 
   # see here for device classes: https://www.home-assistant.io/integrations/binary_sensor/
   defstruct [:name, :device_class]
