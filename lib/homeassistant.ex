@@ -13,7 +13,7 @@ defmodule ExHomeassistant do
     - username: string [default: "homeassistant"]
     - password: string [default: ""]
   """
-  def start_link(nil), do: :noop
+  def start_link(nil), do: :ignore
 
   def start_link(opts) do
     mqtt_state = %MQTTClient.State{
