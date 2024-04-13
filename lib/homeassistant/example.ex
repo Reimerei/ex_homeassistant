@@ -1,8 +1,8 @@
 defmodule ExHomeassistant.Example do
-  alias ExHomeassistant.Devices.{BinarySensor, Select}
+  alias ExHomeassistant.Devices.{BinarySensor, Select, Switch}
 
   @binary_sensor %BinarySensor{
-    name: "Moep Test",
+    name: "Moep Sensor",
     device_class: "door"
   }
 
@@ -11,7 +11,11 @@ defmodule ExHomeassistant.Example do
     options: ["Option 1", "Option 2", "Option 3"]
   }
 
-  def sensor_setup() do
+  @switch %Switch{
+    name: "Moep Switch"
+  }
+
+  def sensor_configure() do
     BinarySensor.configure(@binary_sensor)
   end
 
@@ -23,7 +27,7 @@ defmodule ExHomeassistant.Example do
     BinarySensor.set_state(@binary_sensor, true)
   end
 
-  def select_setup() do
+  def select_configure() do
     Select.configure(@select)
   end
 
@@ -31,7 +35,19 @@ defmodule ExHomeassistant.Example do
     Select.set_state(@select, option)
   end
 
-  def select_subscribe() do
-    Select.subscribe(@select)
+  def switch_configure() do
+    Switch.configure(@switch)
+  end
+
+  def switch_subscribe() do
+    Switch.subscribe(@switch)
+  end
+
+  def switch_off() do
+    Switch.set_state(@switch, false)
+  end
+
+  def switch_on() do
+    Switch.set_state(@switch, true)
   end
 end
