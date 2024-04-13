@@ -43,6 +43,13 @@ defmodule ExHomeassistant.Example do
     Switch.subscribe(@switch)
   end
 
+  def switch_receive() do
+    receive do
+      event ->
+        Switch.parse_event(@switch, event)
+    end
+  end
+
   def switch_off() do
     Switch.set_state(@switch, false)
   end

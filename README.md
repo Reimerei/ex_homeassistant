@@ -1,6 +1,6 @@
-# homeassistant
+# ExHomeassistant
 
-Connect to homeassistant via MQTT. Supports autodiscovery so devices will appear automatically in homeassisstant.
+Connect to homeassistant via MQTT. Supports autodiscovery, devices will appear automatically in homeassisstant.
 
 ## Add to your project
 
@@ -29,7 +29,6 @@ Add to your supervision tree. See [here](lib/homeassistant.ex) for more config o
 ```
 
 
-
 ## Usage
 
 ```elixir
@@ -56,3 +55,4 @@ defmodule Example do
 end
 ```
 
+See [here](lib/example.ex) for more examples.

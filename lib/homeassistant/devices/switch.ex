@@ -1,4 +1,5 @@
 defmodule ExHomeassistant.Devices.Switch do
+  require Logger
   alias ExHomeassistant.{MQTTClient, Helper}
 
   # https://www.home-assistant.io/integrations/switch
@@ -30,6 +31,22 @@ defmodule ExHomeassistant.Devices.Switch do
   def subscribe(%__MODULE__{} = switch) do
     topic = command_topic(switch)
     MQTTClient.subscribe(topic, self())
+  end
+
+  def parse_event(%__MODULE__{} = switch, event) do
+    topic = command_topic(switch)
+
+    case event do
+      {:homeassistant_command, ^topic, "ON"} ->
+        true
+
+      {:homeassistant_command, ^topic, "OFF"} ->
+        false
+
+      _ ->
+        Logger.error("Unknown event for switch: #{inspect(event)}")
+        nil
+    end
   end
 
   defp command_topic(%__MODULE__{} = switch) do
