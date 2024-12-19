@@ -1,7 +1,7 @@
 %{
   "cowlib": {:hex, :cowlib, "2.12.1", "a9fa9a625f1d2025fe6b462cb865881329b5caff8f1854d1cbc9f9533f00e1e1", [:make, :rebar3], [], "hexpm", "163b73f6367a7341b33c794c4e88e7dbfe6498ac42dcd69ef44c5bc5507c8db0"},
-  "emqtt": {:git, "https://github.com/emqx/emqtt.git", "c815a18f9be46a7cace5620ef42aec468fc47552", [tag: "1.11.0"]},
+  "emqtt": {:git, "https://github.com/emqx/emqtt.git", "c98ad4c30088d365d75690adc2607203ebc5f71d", [tag: "1.13.5"]},
   "getopt": {:hex, :getopt, "1.0.2", "33d9b44289fe7ad08627ddfe1d798e30b2da0033b51da1b3a2d64e72cd581d02", [:rebar3], [], "hexpm", "a0029aea4322fb82a61f6876a6d9c66dc9878b6cb61faa13df3187384fd4ea26"},
   "gun": {:git, "https://github.com/emqx/gun", "4faea40b9a8ca1eac5288355f8202e0cea379d50", [tag: "1.3.7"]},
-  "jason": {:hex, :jason, "1.4.1", "af1504e35f629ddcdd6addb3513c3853991f694921b1b9368b0bd32beb9f1b63", [:mix], [{:decimal, "~> 1.0 or ~> 2.0", [hex: :decimal, repo: "hexpm", optional: true]}], "hexpm", "fbb01ecdfd565b56261302f7e1fcc27c4fb8f32d56eab74db621fc154604a7a1"},
+  "jason": {:hex, :jason, "1.4.4", "b9226785a9aa77b6857ca22832cffa5d5011a667207eb2a0ad56adb5db443b8a", [:mix], [{:decimal, "~> 1.0 or ~> 2.0", [hex: :decimal, repo: "hexpm", optional: true]}], "hexpm", "c5eb0cab91f094599f94d55bc63409236a8ec69a21a67814529e8d5f6cc90b3b"},
 }

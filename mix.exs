@@ -22,7 +22,7 @@ defmodule ExHomeassistant.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:emqtt, github: "emqx/emqtt", tag: "1.11.0", system_env: [{"BUILD_WITHOUT_QUIC", "1"}]},
+      {:emqtt, github: "emqx/emqtt", tag: "1.13.5", system_env: [{"BUILD_WITHOUT_QUIC", "1"}]},
       {:jason, "~> 1.0"}
     ]
   end
