@@ -1,7 +1,9 @@
 %{
-  "cowlib": {:hex, :cowlib, "2.12.1", "a9fa9a625f1d2025fe6b462cb865881329b5caff8f1854d1cbc9f9533f00e1e1", [:make, :rebar3], [], "hexpm", "163b73f6367a7341b33c794c4e88e7dbfe6498ac42dcd69ef44c5bc5507c8db0"},
-  "emqtt": {:git, "https://github.com/emqx/emqtt.git", "c98ad4c30088d365d75690adc2607203ebc5f71d", [tag: "1.13.5"]},
-  "getopt": {:hex, :getopt, "1.0.2", "33d9b44289fe7ad08627ddfe1d798e30b2da0033b51da1b3a2d64e72cd581d02", [:rebar3], [], "hexpm", "a0029aea4322fb82a61f6876a6d9c66dc9878b6cb61faa13df3187384fd4ea26"},
-  "gun": {:git, "https://github.com/emqx/gun", "4faea40b9a8ca1eac5288355f8202e0cea379d50", [tag: "1.3.7"]},
+  "cowlib": {:hex, :cowlib, "2.13.0", "db8f7505d8332d98ef50a3ef34b34c1afddec7506e4ee4dd4a3a266285d282ca", [:make, :rebar3], [], "hexpm", "e1e1284dc3fc030a64b1ad0d8382ae7e99da46c3246b815318a4b848873800a4"},
+  "emqtt": {:hex, :emqtt, "1.14.7", "7ace5a62337fe92c8596bc2872cbcb3430959ff90718c2004bdd691bce61614e", [:rebar3], [{:cowlib, "2.13.0", [hex: :cowlib, repo: "hexpm", optional: false]}, {:getopt, "1.0.3", [hex: :getopt, repo: "hexpm", optional: false]}, {:gun, "2.1.0", [hex: :gun, repo: "hexpm", optional: false]}, {:quicer, "0.2.15", [hex: :quicer, repo: "hexpm", optional: false]}], "hexpm", "9eb060ce4abe5092064114819dc72955bc657e020d494660ecc593772c4125db"},
+  "getopt": {:hex, :getopt, "1.0.3", "4f3320c1f6f26b2bec0f6c6446b943eb927a1e6428ea279a1c6c534906ee79f1", [:rebar3], [], "hexpm", "7e01de90ac540f21494ff72792b1e3162d399966ebbfc674b4ce52cb8f49324f"},
+  "gun": {:hex, :gun, "2.1.0", "b4e4cbbf3026d21981c447e9e7ca856766046eff693720ba43114d7f5de36e87", [:make, :rebar3], [{:cowlib, "2.13.0", [hex: :cowlib, repo: "hexpm", optional: false]}], "hexpm", "52fc7fc246bfc3b00e01aea1c2854c70a366348574ab50c57dfe796d24a0101d"},
   "jason": {:hex, :jason, "1.4.4", "b9226785a9aa77b6857ca22832cffa5d5011a667207eb2a0ad56adb5db443b8a", [:mix], [{:decimal, "~> 1.0 or ~> 2.0", [hex: :decimal, repo: "hexpm", optional: true]}], "hexpm", "c5eb0cab91f094599f94d55bc63409236a8ec69a21a67814529e8d5f6cc90b3b"},
+  "quicer": {:hex, :quicer, "0.2.15", "775fcfa09c9ce5a4a00d23c1c8b1e81cd361ebc847e43bb766efac4373cdb1b8", [:rebar3], [{:snabbkaffe, "1.0.10", [hex: :snabbkaffe, repo: "hexpm", optional: false]}], "hexpm", "52236d9384a541341706bcae438e81b209fa21d2045d3df317f8ba5beda6a8e5"},
+  "snabbkaffe": {:hex, :snabbkaffe, "1.0.10", "9be2f54f61fc6862391b666b2b5b76c3fa53598e2989a17cef1b48cf347a8a63", [:rebar3], [], "hexpm", "70a98df36ae756908d55b5770891d443d63c903833e3e87d544036e13d4fac26"},
 }
